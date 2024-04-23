@@ -14,9 +14,6 @@ import {
   View,
   useColorScheme,
   TouchableOpacity,
-  Alert,
-  Button,
-  StyleSheet,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -90,7 +87,7 @@ function App() {
     setAnswers(Array.from({length: 10}, () => null));
   };
 
-  const renderItem = item => {
+  const renderQuestions = item => {
     return (
       <View>
         <View className="mt-10">
@@ -171,7 +168,7 @@ function App() {
           {/* render Question Section */}
           {jsonData &&
             jsonData[currentIndex] &&
-            renderItem(jsonData[currentIndex])}
+            renderQuestions(jsonData[currentIndex])}
 
           <TouchableOpacity onPress={toggleModal} className="mt-5 ml-auto">
             <Feather name="info" size={24} color="yellow" />
@@ -203,13 +200,12 @@ function App() {
         <Modal
           isVisible={isModalVisible}
           onBackdropPress={() => setModalVisible(false)}>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <View style={styles.content}>
+          <View className="flex-1 justify-center items-center">
+            <View
+              className="w-[92%] bg-white p-5 justify-center items-center rounded-lg"
+              style={{
+                borderColor: 'rgba(0, 0, 0, 0.1)',
+              }}>
               <Feather name="info" size={20} color="#1bb4ce" />
 
               <Text className="text-black text-xl font-semibold">
@@ -233,19 +229,21 @@ function App() {
 
         {/* Submit Modal */}
         <Modal isVisible={isSubmitVisible}>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <View style={styles.content}>
-              <Feather name="info" size={20} color="#1bb4ce" />
-
+          <View className="flex-1 justify-center items-center">
+            <View
+              className="w-[92%] bg-white p-5 justify-center items-center rounded-lg"
+              style={{
+                borderColor: 'rgba(0, 0, 0, 0.1)',
+              }}>
+              <Ionicons
+                name="checkmark-done-circle"
+                size={20}
+                color="#1bb4ce"
+              />
               <Text className="text-black text-xl font-semibold">
                 Quize Completed!
               </Text>
-              <Text className="mt-3">This is your score {score}</Text>
+              <Text className="mt-3">Your score {score}</Text>
               <TouchableOpacity
                 onPress={toggleSubmit}
                 className="rounded-lg bg-[#1bb4ce] py-1.5 px-8 mt-8">
@@ -260,20 +258,5 @@ function App() {
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-  content: {
-    width: '92%',
-    backgroundColor: 'white',
-    padding: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
-  },
-  contentTitle: {
-    fontSize: 20,
-    marginBottom: 12,
-  },
-});
 
 export default App;
